@@ -1,8 +1,10 @@
 const express=require('express');
 const mongoose=require('mongoose');
+const fetch = require('cross-fetch');
 
 const dotenv=require('dotenv');
 dotenv.config({path:'./config.env'});
+
 
 
 
@@ -25,12 +27,21 @@ app.use(function(req, res, next) {
     next();
   });
 
-app.get('/',(req,res)=>{
+app.get('/home',(req,res)=>{
     res.send('Hello World');
     console.log("Hello World");
 }
 );
 app.use(express.json());
+
+app.get('/search',async(req,res)=>{
+    console.log("calling")
+    const {value}=req.query;
+    const response=await fetch(`https://api.edamam.com/search?app_id=900da95e&app_key=40698503668e0bb3897581f4766d77f9&q=${value}`);
+    const data=await response.json();
+    res.json(data);
+}
+);
 
 app.post('/register',async(req,res)=>{
     console.log(req.body);

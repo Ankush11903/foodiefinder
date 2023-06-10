@@ -32,7 +32,7 @@ export default function Food() {
     console.log("feetching");
     setLoading(true);
     fetch(
-      "https://tubeview-search-server2.vercel.app/search?value=" +
+      "http://localhost:3000/search?value=" +
       value
     )
       .then((response) => response.json())
