@@ -35,6 +35,7 @@ export default function Food() {
       "http://localhost:3000/search?value=" +
       value
     )
+    // okay
       .then((response) => response.json())
       .then((da) => {
         console.log(da);
