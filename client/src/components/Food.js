@@ -32,7 +32,7 @@ export default function Food() {
     console.log("feetching");
     setLoading(true);
     fetch(
-      "http://localhost:3000/search?value=" +
+      "http://localhost:5000/search?value=" +
       value
     )
     // okay

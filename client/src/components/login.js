@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import logo2 from './loginlogo2.png'
+import cookie from 'js-cookie';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -11,12 +12,7 @@ const LoginPage = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-
-    // Handle registration logic here
-    // You can access the form data using the state variables (name, phoneNumber, email, password)
-    // console.log(name)
-    // fetch("http://127.0.0.1:8000/register/")
-    const response= await fetch("http://localhost:3000/login", {
+    const response= await fetch("http://localhost:5000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +27,9 @@ const LoginPage = () => {
     const data = await response.json();
     console.log(data);
     if(response.status===200){
-      window.localStorage.setItem("token",data.token);
+      window.localStorage.setItem("token",data);
+      cookie.set("token",data?.token,{expires:1})
+
 
       alert("User login successfully");
       navigate("/");

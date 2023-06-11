@@ -26,10 +26,11 @@ const userSchema=new mongoose.Schema({
 const jwt=require('jsonwebtoken');
 userSchema.methods.generateAuthToken=async function(){
     try{
-        console.log("calling")
-        const token=jwt.sign({_id:this._id},process.env.JWT_KEY);
+        console.log("calling token")
+        const token=jwt.sign({_id:this._id},"Mynameiskhan");
         console.log(token)
         this.tokens=this.tokens.concat({token:token});
+        console.log(this.tokens)
         await this.save();
         return token;
     }catch(err){

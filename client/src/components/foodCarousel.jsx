@@ -36,7 +36,7 @@ function FoodCarousel(props) {
 
       <div
         className="flex transition-all duration-1000 ease-in-out "
-        style={{ transform: `translateX(-${currentIndex * 63}rem)` }}
+        style={{ transform: `translateX(-${currentIndex * 64}rem)` }}
       >
         {arr?.map((value) => (
           <div className="w-full  mx-2 bg-gray-100 rounded-lg" key={value[0]}>
