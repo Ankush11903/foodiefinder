@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import registerImage from "../registerImage.png";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -44,8 +45,19 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <form className="w-1/3 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div className="flex justify-center items-center h-screen bg-cover" 
+    
+    ><img
+    src={registerImage}
+    alt="Ambulance Background"
+    className="absolute inset-0 w-full h-full object-cover opacity-1000 z-0"
+    // style={{
+    //   padding:'75px',
+    //   height:'800px',
+    //   width:'2000px',
+    // }}
+  />
+      <form className="relative z-10 mr-[45rem] w-1/3 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"

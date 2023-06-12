@@ -1,97 +1,136 @@
-import React,{Suspense,lazy} from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 
-import Header  from "./Header";
+import Header from "./Header";
 import Body from "./Body";
-import {createBrowserRouter,RouterProvider,Outlet} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Profile from "./Profile";
 import LoginPage from "./login";
 import RegisterPage from "./Register";
 import ComingSoonPage from "./CalorieTracker";
 
-const Error =lazy(()=>import('./Error'))
+const Error = lazy(() => import("./Error"));
 
-const About=lazy(()=>import("./About"));
-const Contact=lazy(()=>import ('./Contact'))
-import RestaurantMenu from './RestaurantMenu'
+const About = lazy(() => import("./About"));
+const Contact = lazy(() => import("./Contact"));
+import RestaurantMenu from "./RestaurantMenu";
 import { Provider } from "react-redux";
 import store from "../utils/Store";
 import Cart from "./Cart";
 import RegisterPage from "./Register";
 import Food from "./Food";
 
-
 const App = () => {
   return (
-    <Provider store={store} >
+    <Provider store={store}>
       <Header />
       <Outlet />
     </Provider>
   );
 };
 
-const appRouter= createBrowserRouter([
-  {
-    path:"/",
-    element:<App/>,
-    errorElement:<Suspense><Error /></Suspense>,
-    children:[
-      {
-        path:"/",
-        element:<Body/>,
-      },
-      {
-        path:"/food",
-        element:<Food />,
 
+const Login = () => {
+  return (
+    <Provider store={store}>
+      <Outlet />
+    </Provider>
+  );
+};
+
+
+
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: (
+      <Suspense>
+        <Error />
+      </Suspense>
+    ),
+    children: [
+      {
+        path: "/",
+        element: <Body />,
       },
       {
-        path:"/about",
-        element:<Suspense><About/></Suspense>,
+        path: "/food",
+        element: <Food />,
       },
       {
-        path:"/Contact",
-        element:<Suspense><Contact/></Suspense>,
+        path: "/about",
+        element: (
+          <Suspense>
+            <About />
+          </Suspense>
+        ),
       },
       {
-        path:"/Restaurant/:id",
-        element:<RestaurantMenu />,
+        path: "/Contact",
+        element: (
+          <Suspense>
+            <Contact />
+          </Suspense>
+        ),
       },
       {
-        path:"/cart",
-        element:<Cart />,
+        path: "/Restaurant/:id",
+        element: <RestaurantMenu />,
       },
       {
-        path:"/Calorie",
-        element:<ComingSoonPage />,
+        path: "/cart",
+        element: <Cart />,
       },
       {
-        path: '/register',
+        path: "/Calorie",
+        element: <ComingSoonPage />,
+      }
+    ],
+    
+  },
+  ,
+      {
+        path: "/register",
         element: (
           <>
             <RegisterPage />
-          </>),
+          </>
+        ),
       },
       {
-        path: '/login',
+        path: "/login",
         element: (
           <>
-            <LoginPage />
-          </>),
-    errorElement:<Suspense><Error /></Suspense>
+            <Login />
+          </>
+        ),
+        errorElement: (
+          <Suspense>
+            <Error />
+          </Suspense>
+        ),
+        children: [
+          {
+            path: "/login",
+            element: <LoginPage />,
+          },
+        ],
       },
       {
-        path: '/profile',
+        path: "/profile",
         element: (
           <>
             <Profile />
-          </>),
-    errorElement:<Suspense><Error /></Suspense>
+          </>
+        ),
+        errorElement: (
+          <Suspense>
+            <Error />
+          </Suspense>
+        ),
       },
-    ]
-
-  }
-])
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={appRouter} />);

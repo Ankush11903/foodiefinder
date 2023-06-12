@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import logo2 from './loginlogo2.png'
 import cookie from 'js-cookie';
+import { useDispatch } from "react-redux";
+import {addUser} from "../utils/UserSlice";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -26,6 +29,8 @@ const LoginPage = () => {
     });
     const data = await response.json();
     console.log(data);
+    dispatch(addUser(data));
+
     if(response.status===200){
       window.localStorage.setItem("token",data);
       cookie.set("token",data?.token,{expires:1})
@@ -47,27 +52,22 @@ const LoginPage = () => {
         backgroundImage: `url('bg-loginlogo2.jpg')`,
         zIndex: 40,
         opacity: 90,
-        width: '350px',
-        height: '800px',
+        width: 'full',
+        height: 'full',
         marginRight: '850px',
       }}
     >
       <div className="bg-white p-8 rounded shadow-md"
       style={{
         width: '500px',
-        height: '600px',
+        height: '430px',
         marginTop: '10px',
-        marginLeft: '350px',
+        marginLeft: '250px',
       }}>
         <img
           src={logo2}
           alt="Ambulance Background"
           className="absolute inset-0 w-full h-full object-cover opacity-1000 z-0"
-          // style={{
-          //   padding:'75px',
-          //   height:'800px',
-          //   width:'2000px',
-          // }}
         />
         <div className="relative z-10 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <h2 className="text-2xl font-bold mb-4">Login</h2>

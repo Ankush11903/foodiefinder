@@ -15,11 +15,11 @@ router.post("/signup", async (req, res) => {
       }
     });
     bcrypt.hash(password, 12).then(async(hashedpassword) => {
-      const user = new user({
+      const User = new user({
         email,
         password: hashedpassword,
         name,
-      }); await user.save();
+      }); await User.save();
       return res.status(200).json({ message: "saved successfully" });
     });
    

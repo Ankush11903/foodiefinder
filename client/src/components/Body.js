@@ -42,67 +42,6 @@ const Body = () => {
     window.location.href = "https://www.blinkit.com";
   };
 
-  useEffect(() => {
-    try {
-      callApiHandler2()
-        .then((response) => {
-          setCarouselData(da?.data?.cards[0]?.data?.data?.cards);
-
-          rest = da?.data?.cards[2]?.data?.data?.cards?.map((x) => x.data);
-          setNoOfRestaurant(da?.data?.cards[2]?.data?.data?.totalRestaurants);
-
-          setAllRestaurant(rest);
-          setRestaurant(rest);
-          // handle the response here
-        })
-        .catch((error) => {
-          setCarouselData(da?.data?.cards[0]?.data?.data?.cards);
-
-          rest = da?.data?.cards[2]?.data?.data?.cards?.map((x) => x.data);
-          setNoOfRestaurant(da?.data?.cards[2]?.data?.data?.totalRestaurants);
-
-          setAllRestaurant(rest);
-          setRestaurant(rest);
-          console.error(error);
-          // handle the error here
-
-          setCarouselData(da?.data?.cards[0]?.data?.data?.cards);
-
-          rest = da?.data?.cards[2]?.data?.data?.cards?.map((x) => x.data);
-          setNoOfRestaurant(da?.data?.cards[2]?.data?.data?.totalRestaurants);
-
-          setAllRestaurant(rest);
-          setRestaurant(rest);
-        });
-    } catch (error) {
-      // handle the error here
-
-      setCarouselData(da?.data?.cards[0]?.data?.data?.cards);
-
-      rest = da?.data?.cards[2]?.data?.data?.cards?.map((x) => x.data);
-      setNoOfRestaurant(da?.data?.cards[2]?.data?.data?.totalRestaurants);
-
-      setAllRestaurant(rest);
-      setRestaurant(rest);
-    }
-  }, []);
-  
-
-  const handelInfiniteScroll = async () => {
-    try {
-      if (
-        window.innerHeight + document.documentElement.scrollTop + 1 >=
-        document.documentElement.scrollHeight
-      ) {
-        setCart((prev) => prev + 16);
-      }
-    } catch (error) {}
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handelInfiniteScroll);
-    return () => window.removeEventListener("scroll", handelInfiniteScroll);
-  }, []);
 
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -125,16 +64,13 @@ const Body = () => {
   return (
     <>
       <div
-        className="bg-cover bg-no-repeat bg-center"
+        className="bg-cover bg-no-repeat bg-center h-screen"
         style={{
           backgroundImage: `url(${dashboard})`,
-          height: "87vh",
+          
         }}
       >
         <>
-          {carouselData?.length === 0 ? (
-            <Shimmer />
-          ) : (
             <div>
               <div className="flex items-center justify-center h-96">
                 {showSearchBar ? (
@@ -199,14 +135,13 @@ const Body = () => {
                 onClick={handleClick}
               ></button>
             </div>
-          )}
+          
         </>
       </div>
       <div
-        className="bg-cover bg-no-repeat bg-center"
+        className="bg-cover bg-no-repeat bg-center h-screen"
         style={{
           backgroundImage: `url(${dash})`,
-          height: "100vh",
         }}
       >
         <div className="flex items-center justify-center h-screen">
@@ -229,10 +164,10 @@ const Body = () => {
         </div>
       </div>
       <div
-        className="bg-cover bg-no-repeat bg-center"
+        className="bg-cover bg-no-repeat "
         style={{
           backgroundImage: `url(${re})`,
-          height: "100vh",
+          height: "full",
         }}
       >
         
