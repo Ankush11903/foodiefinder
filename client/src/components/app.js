@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import LoginPage from "./login";
 import RegisterPage from "./Register";
 import ComingSoonPage from "./CalorieTracker";
+import EditProfile from "./EditProfile";
 
 const Error = lazy(() => import("./Error"));
 
@@ -121,7 +122,7 @@ const appRouter = createBrowserRouter([
         path: "/profile",
         element: (
           <>
-            <Profile />
+            <EditProfile />
           </>
         ),
         errorElement: (

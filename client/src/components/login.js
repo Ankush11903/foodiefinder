@@ -6,6 +6,7 @@ import logo2 from './loginlogo2.png'
 import cookie from 'js-cookie';
 import { useDispatch } from "react-redux";
 import {addUser} from "../utils/UserSlice";
+import { useEffect } from 'react';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -32,8 +33,7 @@ const LoginPage = () => {
     dispatch(addUser(data));
 
     if(response.status===200){
-      window.localStorage.setItem("token",data);
-      cookie.set("token",data?.token,{expires:1})
+      cookie.set("token",data?.token,{expires:7})
 
 
       alert("User login successfully");

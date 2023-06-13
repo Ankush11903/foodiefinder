@@ -20,6 +20,7 @@ import four from "../4.png";
 import five from "../5.png";
 import six from "../6.png";
 import re from "../re.png";
+import cookie from 'js-cookie';
 
 function fliterData(restaurant, searchText) {
   const filterData = restaurant.filter((restaurants) =>
@@ -41,7 +42,38 @@ const Body = () => {
   const handleClick = () => {
     window.location.href = "https://www.blinkit.com";
   };
+  const cookieItem=cookie.get("token");
 
+  useEffect(async() => {
+    if (localStorage.getItem("token") || cookie.get("token")) {
+      console.log(localStorage.getItem("token"));
+      console.log("cookie");
+      console.log(cookie.get("token"));
+
+      try{
+        const response=await fetch("http://localhost:5000/getuser", { 
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            cookieItem
+          }),
+        });
+        const data=await response.json();
+        console.log(data);
+        if(response.status===200){
+          console.log("User login successfully");
+          // navigate("/");
+        }
+        else{
+          alert("Error occured");
+        }
+      }catch(err){
+        console.log(err);
+      }
+    }
+  }, []);
 
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [searchValue, setSearchValue] = useState("");

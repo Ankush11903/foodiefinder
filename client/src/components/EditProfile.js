@@ -2,58 +2,98 @@ import React, { useState } from "react";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleForm = () => {
     setIsEditing(!isEditing);
   };
 
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
   return (
-    <div className="profile-container">
-      <h1>Your Profile</h1>
-      <button onClick={toggleForm}>Edit Profile</button>
+    <div className="profile-container relative bg-gray-100 py-8 px-4">
+      <div className="flex items-center">
+        <h1 className="text-2xl font-bold mb-4 cursor-pointer" onClick={toggleDropdown}>
+          Your Profile
+        </h1>
+        {showDropdown && (
+          <div className="dropdown absolute right-0 mt-2 bg-white rounded shadow-lg">
+            <ul className="py-2">
+              <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Profile</li>
+              <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Notifications</li>
+              <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Settings</li>
+              <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Logout</li>
+            </ul>
+          </div>
+        )}
+      </div>
+      <button
+        onClick={toggleForm}
+        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+      >
+        {isEditing ? "Cancel" : "Edit Profile"}
+      </button>
       {isEditing && (
-        <div id="profileForm">
-          <h2>Edit Profile</h2>
+        <div id="profileForm" className="mt-4">
+          <h2 className="text-lg font-bold mb-4">Edit Profile</h2>
           <form>
-            <label htmlFor="height">Height:</label>
+          {/* <form> */}
+            <label htmlFor="height" className="mb-2 block">
+              Height:
+            </label>
             <input
               type="text"
               id="height"
               name="height"
               placeholder="Enter your height"
-              className="input-field"
+              className="input-field w-full py-2 px-4 border border-gray-300 rounded mb-4"
             />
-            <br />
 
-            <label htmlFor="weight">Weight:</label>
+            <label htmlFor="weight" className="mb-2 block">
+              Weight:
+            </label>
             <input
               type="text"
               id="weight"
               name="weight"
               placeholder="Enter your weight"
-              className="input-field"
+              className="input-field w-full py-2 px-4 border border-gray-300 rounded mb-4"
             />
-            <br />
 
-            <label htmlFor="age">Age:</label>
+            <label htmlFor="age" className="mb-2 block">
+              Age:
+            </label>
             <input
               type="text"
               id="age"
               name="age"
               placeholder="Enter your age"
-              className="input-field"
+              className="input-field w-full py-2 px-4 border border-gray-300 rounded mb-4"
             />
-            <br />
 
-            <label htmlFor="gender">Gender:</label>
-            <select id="gender" name="gender" className="input-field">
+            <label htmlFor="gender" className="mb-2 block">
+              Gender:
+            </label>
+            <select
+              id="gender"
+              name="gender"
+              className="input-field w-full py-2 px-4 border border-gray-300 rounded mb-4"
+            >
               <option value="">Select</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
 
-            <label htmlFor="activeness">Activeness:</label>
-            <select id="activity" name="activity" className="input-field">
+            <label htmlFor="activeness" className="mb-2 block">
+              Activeness:
+            </label>
+            <select
+              id="activity"
+              name="activity"
+              className="input-field w-full py-2 px-4 border border-gray-300 rounded mb-4"
+            >
               <option value="">Select</option>
               <option value="sedentary">Sedentary (little or no exercise)</option>
               <option value="lightly_active">
@@ -70,17 +110,21 @@ const Profile = () => {
               </option>
             </select>
 
-            <label htmlFor="bodyGoal">Body Goal:</label>
+            <label htmlFor="bodyGoal" className="mb-2 block">
+              Body Goal:
+            </label>
             <input
               type="text"
               id="bodyGoal"
               name="bodyGoal"
               placeholder="Enter your body goal"
-              className="input-field"
+              className="input-field w-full py-2 px-4 border border-gray-300 rounded mb-4"
             />
-            <br />
 
-            <button type="submit" className="save-button">
+            <button
+              type="submit"
+              className="save-button bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+            >
               Save
             </button>
           </form>

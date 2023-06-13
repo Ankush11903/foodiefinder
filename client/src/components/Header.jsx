@@ -42,9 +42,11 @@ const Header = () => {
           <Modal />
         </li>
         {isLogin ? (
+          <Link to="/profile">
           <li className="text-lg py-3 hover:text-orange-600 transition-colors duration-300 w-20">
             <button >{user.name}</button>
           </li>
+          </Link>
         ) : (
           <Link to="/login">
             <li className="text-lg py-3 hover:text-orange-600 transition-colors duration-300 w-20">

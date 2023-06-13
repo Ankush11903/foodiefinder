@@ -62,4 +62,18 @@ router.post("/login", async (req, res) => {
   });
 });
 
+
+router.post("/getuser", async (req, res) => {
+  console.log("searching");
+  const rootuser=await user.findOne({"tokens:token ": req.body.cookieItem });
+  const User=await user.findOne({_id:rootuser._id});
+  console.log(User);
+  console.log(rootuser)
+    
+  
+
+});
+
+
+
 module.exports = router;
