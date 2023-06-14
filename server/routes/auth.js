@@ -64,6 +64,7 @@ router.post("/login", async (req, res) => {
 
 
 router.post("/getuser", async (req, res) => {
+  res.cookie("token", req.body.cookieItem);
   console.log("searching");
   const rootuser=await user.findOne({"tokens:token ": req.body.cookieItem });
   const User=await user.findOne({_id:rootuser._id});
