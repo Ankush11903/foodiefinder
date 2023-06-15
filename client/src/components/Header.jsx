@@ -35,6 +35,7 @@ const Header = () => {
     console.log("logout");
     dispatch(userLogout());
     const id=user?._id
+    cookie.remove("token");
 
     try {
       await fetch('http://localhost:5000/logout', {

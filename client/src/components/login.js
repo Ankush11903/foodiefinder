@@ -33,10 +33,7 @@ const LoginPage = () => {
     dispatch(addUser(data));
 
     if(response.status===200){
-      cookie.set("token",data?.token,{expires:7})
-
-
-      alert("User login successfully");
+      cookie.set("token",data?.token,{expires:7});
       navigate("/");
     }
     else{
