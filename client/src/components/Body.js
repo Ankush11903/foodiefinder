@@ -21,6 +21,8 @@ import five from "../5.png";
 import six from "../6.png";
 import re from "../re.png";
 import cookie from 'js-cookie';
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/UserSlice";
 
 function fliterData(restaurant, searchText) {
   const filterData = restaurant.filter((restaurants) =>
@@ -30,6 +32,11 @@ function fliterData(restaurant, searchText) {
 }
 
 const Body = () => {
+  const dta={
+    token:cookie.get("token"),
+    user:null
+  }
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState("");
   const [restaurant, setRestaurant] = useState([]);
@@ -44,36 +51,43 @@ const Body = () => {
   };
   const cookieItem=cookie.get("token");
 
-  useEffect(async() => {
-    if (localStorage.getItem("token") || cookie.get("token")) {
-      console.log(localStorage.getItem("token"));
-      console.log("cookie");
-      console.log(cookie.get("token"));
-
-      try{
-        const response=await fetch("http://localhost:5000/getuser", { 
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            cookieItem
-          }),
-        });
-        const data=await response.json();
-        console.log(data);
-        if(response.status===200){
-          console.log("User login successfully");
-          // navigate("/");
+  useEffect(() => {
+    const fetchData = async () => {
+      if (localStorage.getItem("token") || cookie.get("token")) {
+        console.log(localStorage.getItem("token"));
+        console.log("cookie");
+        console.log(cookie.get("token"));
+  
+        try {
+          const response = await fetch("http://localhost:5000/getuser", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              cookieItem
+            }),
+          });
+          const data = await response.json();
+          console.log(data);
+          if (response.status === 200) {
+            console.log("User login successfully");
+            dta.user=data;
+            dta.token=data.token;
+            // navigate("/");
+            dispatch(addUser(dta));
+          } else {
+            alert("Error occurred");
+          }
+        } catch (err) {
+          console.log(err);
         }
-        else{
-          alert("Error occured");
-        }
-      }catch(err){
-        console.log(err);
       }
-    }
+    };
+  
+    fetchData();
   }, []);
+  
 
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [searchValue, setSearchValue] = useState("");

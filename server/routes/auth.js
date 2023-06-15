@@ -14,15 +14,16 @@ router.post("/signup", async (req, res) => {
         return res.status(422).json({ error: "user already exist" });
       }
     });
-    bcrypt.hash(password, 12).then(async(hashedpassword) => {
+    bcrypt.hash(password, 12).then(async (hashedpassword) => {
       const User = new user({
         email,
         password: hashedpassword,
         name,
-      }); await User.save();
+      });
+      await User.save();
       return res.status(200).json({ message: "saved successfully" });
     });
-   
+
     console.log("USER registered");
   } catch (e) {
     console.log(e);
@@ -41,10 +42,10 @@ router.post("/login", async (req, res) => {
     }
     bcrypt
       .compare(password, savedUser.password)
-      .then(async(doMatch) => {
+      .then(async (doMatch) => {
         if (doMatch) {
           console.log("successfully signin");
-          const token =await savedUser.generateAuthToken();
+          const token = await savedUser.generateAuthToken();
           console.log(token);
           const { _id, name, email } = savedUser;
           res.json({ token, user: { _id, name, email } });
@@ -62,18 +63,27 @@ router.post("/login", async (req, res) => {
   });
 });
 
-
 router.post("/getuser", async (req, res) => {
   console.log("searching");
-  const rootuser=await user.findOne({"tokens:token ": req.body.cookieItem });
-  const User=await user.findOne({_id:rootuser._id});
-  console.log(User);
-  console.log(rootuser)
-    
-  
-
+  console.log(req.body.cookieItem);
+  const rootuser = await user.findOne({ "tokens.token": req.body.cookieItem });
+  return res.json(rootuser);
 });
 
+
+  router.post("/logout", async (req, res) => {
+    const cookieValue = req.body.cookie;
+    console.log(cookieValue);
+    const result = await user.updateOne(
+      { _id: req.body.id },
+      { $pull: { tokens: { token: cookieValue } } }
+    );
+    console.log("result");
+    console.log(result);
+    return res.status(200).json({ message: "logged out successfully" });
+
+
+  });
 
 
 module.exports = router;

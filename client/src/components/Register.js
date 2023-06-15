@@ -32,6 +32,7 @@ const RegisterPage = () => {
     const data = await response.json();
     console.log(data);
     if(response.status===200){
+    
       alert("User created successfully");
       navigate("/login");
     }
