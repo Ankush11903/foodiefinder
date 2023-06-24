@@ -13,4 +13,14 @@ FoodieFindr is a web application that helps users discover recipes based on the 
 - **Save Favorites**: Users can save their favorite recipes for quick access in the future.
 - **Share Recipes**: Easily share recipes with friends and family through social media or email.
 
+- ## Tech Stack
+
+- React: JavaScript library for building user interfaces
+- Redux Toolkit: Official, opinionated, batteries-included toolset for efficient Redux development
+- React Router: Declarative routing for React
+- Swiggy API: Provides real-time restaurant information and data
+- Node.js: JavaScript runtime environment for server-side development
+- Express.js: Web application framework for Node.js
+- Tailwind CSS: A utility-first CSS framework for rapid UI development
+
 
