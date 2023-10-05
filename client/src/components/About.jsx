@@ -50,7 +50,7 @@ const About= () => {
                 <p
                   className={`text-gray-600 mt-4 transition-all duration-300 ${state === 'entered' ? 'opacity-100' : 'opacity-0'}`}
                 >
-                  <h2>Established on 2nd July,2023</h2>
+                  <h2>Established on 5th Oct,2023</h2>
                 </p>
               )}
             </Transition>

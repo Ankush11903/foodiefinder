@@ -5,6 +5,32 @@ const jwt = require("jsonwebtoken");
 const user = require("../model/userSchema");
 const router = express.Router();
 
+router.post("/update-password-field", async (req, res) => {
+  await user.updateMany(
+    {  },
+  { $rename: { 'newPassword': 'password' } }
+  );
+
+
+
+  user.findOne({ password1:{ $exists: true } }).then((savedUser) => {
+    console.log("hello",savedUser)
+  });
+
+  console.log('Documents updated successfully.');
+  try {
+
+    // Fetch all documents from the user collection
+    const documents = await user.find({});
+
+    console.log('All documents in the collection:', documents);
+
+    
+  } catch (err) {
+    console.error('Error:', err);
+  }
+});
+
 router.post("/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -22,6 +48,7 @@ router.post("/signup", async (req, res) => {
       });
       await User.save();
       return res.status(200).json({ message: "saved successfully" });
+      
     });
 
     console.log("USER registered");
@@ -32,6 +59,7 @@ router.post("/signup", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+ 
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(422).json({ error: "please add all the fields" });
